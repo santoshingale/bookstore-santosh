@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "40399691989",
+    "project_id": "bookstore-akash",
+    "storage_bucket": "bookstore-akash.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:40399691989:android:8bb2a462a64b686e9a825c",
+        "android_client_info": {
+          "package_name": "com.example.bookapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "40399691989-so9ir43hcaugaiias9gmmrvk9lo1eld6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.bookapp",
+            "certificate_hash": "5da2b825694bb9398d9afd0926fcc8847287ccc8"
+          }
+        },
+        {
+          "client_id": "40399691989-4c17r0vqft87l6cnqriie841mvi4dgmn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCIlIX8RJ2Xd6_LSr6IbTY9S9GB3khRAb8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "40399691989-4c17r0vqft87l6cnqriie841mvi4dgmn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
