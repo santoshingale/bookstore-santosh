@@ -7,16 +7,10 @@ import android.os.Bundle;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
-import android.speech.tts.TextToSpeech;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.SearchView;
-import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,7 +21,6 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.FirebaseError;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -37,7 +30,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class UserActivity extends AppCompatActivity {
     TextView email;
@@ -52,33 +44,34 @@ public class UserActivity extends AppCompatActivity {
     ImageView cart;
     Button logout;
     ImageView voice;
-    boolean listening=false;
+    boolean listening = false;
     SearchView search;
 
 
-    int child=1;
+    int child = 1;
     SpeechRecognizer speechRecognizer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_layout);
         setOnClickListener();
 
-        firebaseAuth=FirebaseAuth.getInstance();
-        firebaseUser= firebaseAuth.getCurrentUser();
-        email=findViewById(R.id.email);
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
+        email = findViewById(R.id.email);
         email.setText(firebaseUser.getEmail().toString());
 
-        recyclerView=findViewById(R.id.booklist);
+        recyclerView = findViewById(R.id.booklist);
         ref = FirebaseDatabase.getInstance().getReference("Books");
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         bookList = new ArrayList<>();
-        myAdapter = new MyAdapter(this,bookList, listener);
+        myAdapter = new MyAdapter(this, bookList, listener);
         recyclerView.setAdapter(myAdapter);
 
-        logout= findViewById(R.id.logout);
+        logout = findViewById(R.id.logout);
         //Logout
         logout.setOnClickListener(view -> {
             firebaseAuth.signOut();
@@ -90,13 +83,13 @@ public class UserActivity extends AppCompatActivity {
         cart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent= new Intent(UserActivity.this, CartActivity.class);
+                Intent intent = new Intent(UserActivity.this, CartActivity.class);
                 startActivity(intent);
             }
         });
 
-        if(ContextCompat.checkSelfPermission(this,android.Manifest.permission.RECORD_AUDIO)!= PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.RECORD_AUDIO},1);
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO}, 1);
 
         }
 
@@ -105,11 +98,13 @@ public class UserActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 Search(query);
-                return true;
+                return false;
             }
 
             @Override
-            public boolean onQueryTextChange(String newText) {
+            public boolean onQueryTextChange(String query) {
+                Search(query);
+//                return true;
                 return false;
             }
         });
@@ -121,11 +116,11 @@ public class UserActivity extends AppCompatActivity {
         voice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (listening=false){
+                if (listening = false) {
                     speechRecognizer.startListening(speechRecognizerIntent);
-                    listening= true;
+                    listening = true;
 
-                }else{
+                } else {
                     speechRecognizer.stopListening();
                     listening = false;
                 }
@@ -165,10 +160,9 @@ public class UserActivity extends AppCompatActivity {
 
             @Override
             public void onResults(Bundle results) {
-                ArrayList<String> data =results.getStringArrayList(speechRecognizer.RESULTS_RECOGNITION);
+                ArrayList<String> data = results.getStringArrayList(speechRecognizer.RESULTS_RECOGNITION);
                 bookList.clear();
-                search.setQuery(data.get(0),false);
-
+                search.setQuery(data.get(0), false);
 
 
             }
@@ -188,7 +182,7 @@ public class UserActivity extends AppCompatActivity {
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot: snapshot.getChildren()) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     book = dataSnapshot.getValue(Book.class);
                     bookList.add(book);
                 }
@@ -203,37 +197,35 @@ public class UserActivity extends AppCompatActivity {
         });
 
 
-
-
     }
 
 
     private void Search(String query) {
-         if (!query.equals(" ")){
+        if (!query.trim().equals("")) {
+
             bookList.clear();
             ref = FirebaseDatabase.getInstance().getReference().child("Books");
+
 
             ref.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    bookList.clear();
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                         Book book = dataSnapshot.getValue(Book.class);
-                        if (book.getTitle().equals(query)) {
+//                        System.out.println(book.getTitle().toLowerCase().contains(query.toLowerCase()));
+                        if (book.getTitle().toLowerCase().contains(query.toLowerCase())) {
                             bookList.add(book);
-
                         }
-
                     }
-
                 }
-
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
 
                 }
             });
-        }else{
+        } else {
             bookList.clear();
             ref = FirebaseDatabase.getInstance().getReference().child("Books");
 
@@ -242,10 +234,8 @@ public class UserActivity extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                         Book book = dataSnapshot.getValue(Book.class);
+                        System.out.println("Here ------------------------->" + book.getTitle());
                         bookList.add(book);
-
-
-
                     }
 
                 }
@@ -259,21 +249,18 @@ public class UserActivity extends AppCompatActivity {
 
 
         }
-        myAdapter = new MyAdapter(this,bookList, listener);
+        myAdapter = new MyAdapter(this, bookList, listener);
         recyclerView.setAdapter(myAdapter);
-
-
-
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode,@NonNull String[] permissions, @NonNull int[] grandResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grandResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grandResults);
-        if (requestCode==1){
-            if (grandResults[0]==PackageManager.PERMISSION_GRANTED){
-                Toast.makeText(this ,"Permission Granted", Toast.LENGTH_LONG);
+        if (requestCode == 1) {
+            if (grandResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this, "Permission Granted", Toast.LENGTH_LONG);
 
-            }else{
+            } else {
                 Toast.makeText(this, "Permission Denied", Toast.LENGTH_LONG);
             }
         }
@@ -285,14 +272,12 @@ public class UserActivity extends AppCompatActivity {
             @Override
             public void onClick(View v, int position) {
                 Intent intent = new Intent(getApplicationContext(), BookDetailsActivity.class);
-                intent.putExtra("bookId",bookList.get(position).getBookId());
-                intent.putExtra("title",bookList.get(position).getTitle());
-                intent.putExtra("image",bookList.get(position).getImage());
-                intent.putExtra("price",bookList.get(position).getPrice());
-                intent.putExtra("availability",bookList.get(position).getAvailability());
-                intent.putExtra("details",bookList.get(position).getDetails());
-
-
+                intent.putExtra("bookId", bookList.get(position).getBookId());
+                intent.putExtra("title", bookList.get(position).getTitle());
+                intent.putExtra("image", bookList.get(position).getImage());
+                intent.putExtra("price", bookList.get(position).getPrice());
+                intent.putExtra("availability", bookList.get(position).getAvailability());
+                intent.putExtra("details", bookList.get(position).getDetails());
                 startActivity(intent);
             }
         };
