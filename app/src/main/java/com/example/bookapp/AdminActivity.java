@@ -23,6 +23,8 @@ public class AdminActivity extends AppCompatActivity {
 
     Button add;
     TextView title;
+
+    TextView author;
     TextView image;
     TextView price;
     TextView availability;
@@ -48,6 +50,7 @@ public class AdminActivity extends AppCompatActivity {
 
 
         title= findViewById(R.id.bookTitle);
+        author = findViewById(R.id.bookAuthor);
         image= findViewById(R.id.bookImage);
         price= findViewById(R.id.bookPrice);
         availability= findViewById(R.id.bookAvailability);
@@ -70,12 +73,11 @@ public class AdminActivity extends AppCompatActivity {
         Book book= new Book();
         book.setBookId(bookId.getText().toString());
         book.setTitle(title.getText().toString());
+        book.setAuthor(author.getText().toString());
         book.setImage(image.getText().toString());
         book.setPrice(price.getText().toString());
         book.setAvailability(availability.getText().toString());
         book.setDetails(details.getText().toString());
-
-
 
         DatabaseReference ref= FirebaseDatabase.getInstance().getReference("Books");
         ref.child(bookId.getText().toString())

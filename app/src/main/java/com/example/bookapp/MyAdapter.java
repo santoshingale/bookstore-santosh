@@ -33,11 +33,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     static MyViewHolder.RecyclerViewListener listener;
     static ArrayList<Book>  selecteditems;
 
-
-
-
-
-
     public MyAdapter(Context context, ArrayList<Book> bookList, MyViewHolder.RecyclerViewListener listener) {
         this.context = context;
         BookList = bookList;
@@ -50,9 +45,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         View view = LayoutInflater.from(context).inflate(R.layout.book_layout,parent,false);
         return new MyViewHolder(view);
 
-
-
-
     }
 
     @Override
@@ -62,7 +54,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
         Book book= BookList.get(position);
         holder.title.setText(book.getTitle());
-
+        holder.author.setText("Author: " + book.getAuthor());
 
         holder.price.setText("Price: "+String.valueOf(book.getPrice()));
         holder.capacity.setText("Αvailability: "+book.getAvailability());
@@ -96,6 +88,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView title;
+
+        TextView author;
         ImageView image;
         TextView price;
         TextView capacity;
@@ -104,6 +98,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             super(itemView);
 
             title= itemView.findViewById(R.id.title);
+            author= itemView.findViewById(R.id.author);
             image = itemView.findViewById(R.id.image);
             price= itemView.findViewById(R.id.price);
             capacity= itemView.findViewById(R.id.capacity);

@@ -226,7 +226,6 @@ public class UserActivity extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                         Book book = dataSnapshot.getValue(Book.class);
-                        System.out.println("Here ------------------------->" + book.getTitle());
                         bookList.add(book);
                     }
                 }
@@ -235,8 +234,6 @@ public class UserActivity extends AppCompatActivity {
 
                 }
             });
-
-
         }
         myAdapter = new MyAdapter(this, bookList, listener);
         recyclerView.setAdapter(myAdapter);
@@ -262,6 +259,7 @@ public class UserActivity extends AppCompatActivity {
             public void onClick(View v, int position) {
                 Intent intent = new Intent(getApplicationContext(), BookDetailsActivity.class);
                 intent.putExtra("bookId", bookList.get(position).getBookId());
+                intent.putExtra("author", bookList.get(position).getAuthor());
                 intent.putExtra("title", bookList.get(position).getTitle());
                 intent.putExtra("image", bookList.get(position).getImage());
                 intent.putExtra("price", bookList.get(position).getPrice());

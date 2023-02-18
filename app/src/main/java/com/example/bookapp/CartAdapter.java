@@ -57,6 +57,7 @@ public class CartAdapter extends RecyclerView.Adapter<com.example.bookapp.CartAd
 
         CartItem item= ItemList.get(position);
         holder.title.setText(item.getTitle());
+        holder.author.setText("Author: " + item.getAuthor());
         holder.price.setText("Price: "+String.valueOf(item.getPrice()));
         holder.quantity.setText("Quantity: "+item.getQuantity());
 
@@ -88,6 +89,7 @@ public class CartAdapter extends RecyclerView.Adapter<com.example.bookapp.CartAd
     public static class MyCartViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView title;
+        TextView author;
         ImageView image;
         TextView price;
         TextView capacity;
@@ -96,14 +98,13 @@ public class CartAdapter extends RecyclerView.Adapter<com.example.bookapp.CartAd
             super(itemView);
 
             title= itemView.findViewById(R.id.title);
+            author= itemView.findViewById(R.id.author);
             image = itemView.findViewById(R.id.image);
             price= itemView.findViewById(R.id.price);
             capacity= itemView.findViewById(R.id.capacity);
             quantity = itemView.findViewById(R.id.quantity);
 
             itemView.setOnClickListener(this);
-
-
 
         }
         interface RecyclerViewListener{

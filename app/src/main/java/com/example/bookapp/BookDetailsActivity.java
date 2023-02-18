@@ -31,6 +31,7 @@ public class BookDetailsActivity extends AppCompatActivity {
 
 
     TextView title;
+    TextView author;
     TextView price;
     TextView availability;
     TextView quant;
@@ -68,6 +69,7 @@ public class BookDetailsActivity extends AppCompatActivity {
 
 
         title = findViewById(R.id.title);
+        author = findViewById(R.id.author);
         price = findViewById(R.id.price);
         availability = findViewById(R.id.availability);
         quant = findViewById(R.id.quantity);
@@ -79,7 +81,6 @@ public class BookDetailsActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         title.setText(extras.getString("title"));
         price.setText("Price: " + extras.getString("price"));
-        availability.setText("Availability: " + extras.getString("availability"));
         details.setText(extras.getString("details"));
 
         //get image from storage
@@ -214,6 +215,8 @@ public class BookDetailsActivity extends AppCompatActivity {
             CartItem item = new CartItem();
             item.setItemId(extras.getString("id"));
             item.setTitle(extras.getString("title"));
+            item.setAuthor(extras.getString("author"));
+            System.out.println(extras.getString("--------------------------------->"+"author"));
             item.setImage(extras.getString("image"));
             item.setPrice((extras.getString("price")));
             item.setAvailability(extras.getString("availability"));

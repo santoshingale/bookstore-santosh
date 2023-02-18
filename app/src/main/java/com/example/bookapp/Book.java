@@ -3,6 +3,16 @@ package com.example.bookapp;
 public class Book {
     private String bookId;
     private String title;
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    private String author;
     private String image;
     private String price;
     private String availability;
