@@ -100,7 +100,6 @@ public class UserActivity extends AppCompatActivity {
                 Search(query);
                 return false;
             }
-
             @Override
             public boolean onQueryTextChange(String query) {
                 Search(query);
@@ -189,24 +188,17 @@ public class UserActivity extends AppCompatActivity {
                 myAdapter.notifyDataSetChanged();
                 child++;
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
-
-
     }
-
-
     private void Search(String query) {
         if (!query.trim().equals("")) {
 
             bookList.clear();
             ref = FirebaseDatabase.getInstance().getReference().child("Books");
-
-
             ref.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -237,10 +229,7 @@ public class UserActivity extends AppCompatActivity {
                         System.out.println("Here ------------------------->" + book.getTitle());
                         bookList.add(book);
                     }
-
                 }
-
-
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
 

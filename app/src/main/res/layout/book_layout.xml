@@ -21,15 +21,32 @@
             app:elevation="0dp"></ImageView>
 
         <TextView
+            android:id="@+id/author"
+            style="@style/TextAppearance.MaterialComponents.Body2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="7dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="86dp"
+            android:layout_toEndOf="@id/image"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="author" />
+
+        <TextView
             android:id="@+id/title"
             style="@style/TextAppearance.MaterialComponents.Headline6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="7dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="4dp"
             android:layout_toEndOf="@id/image"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="Book Title "
-            android:layout_marginLeft="10dp"/>
+            android:text="Book Title " />
 
         <TextView
             android:id="@+id/price"
@@ -37,29 +54,27 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/title"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="7dp"
+            android:layout_marginLeft="9dp"
+            android:layout_marginTop="28dp"
             android:layout_toEndOf="@id/image"
             android:ellipsize="end"
             android:maxLines="4"
-            android:text="Book Price"
-            android:layout_marginLeft="10dp"/>
+            android:text="Book Price" />
+
         <TextView
             android:id="@+id/capacity"
             style="@style/TextAppearance.MaterialComponents.Body2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/price"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="7dp"
+            android:layout_marginLeft="9dp"
+            android:layout_marginTop="5dp"
             android:layout_toEndOf="@id/image"
             android:ellipsize="end"
             android:maxLines="4"
-            android:text="Book capacity"
-            android:layout_marginLeft="10dp"/>
-
-
-
-
-
+            android:text="Book capacity" />
 
 
     </RelativeLayout>
