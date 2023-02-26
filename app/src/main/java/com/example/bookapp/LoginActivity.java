@@ -88,7 +88,6 @@ public class LoginActivity extends AppCompatActivity {
 
                     //check in db
                     DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
-                    System.out.println("-------------------->"+firebaseUser.getUid());
                     ref.child(firebaseUser.getUid())
                             .addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override

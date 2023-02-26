@@ -37,15 +37,12 @@ public class AdminActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
         setContentView(R.layout.admin_layout);
-
-
-
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         logout= findViewById(R.id.logout);
         //Logout
         logout.setOnClickListener(view -> {
             firebaseAuth.signOut();
             startActivity(new Intent(AdminActivity.this, LoginActivity.class));
-
         });
 
 

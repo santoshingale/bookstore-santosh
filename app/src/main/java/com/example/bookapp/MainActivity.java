@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
     private void checkUser() {
         FirebaseUser firebaseUser= firebaseAuth.getCurrentUser();
         //if user is already logged in
-        if (firebaseUser!=null){
+        if (firebaseUser != null){
 
             //check in db
             DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
